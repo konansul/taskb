@@ -58,3 +58,5 @@ uploads/
 # Docker / Compose
 *.pid
 *.sock
+
+.idea/
