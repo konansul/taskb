@@ -1,4 +1,4 @@
-#!/Users/konansul/Desktop/4sim-gov-ai-mvp/taskb/venv/bin/python3
+#!/Users/konansul/Desktop/taskb/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
