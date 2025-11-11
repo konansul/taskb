@@ -1,0 +1,60 @@
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+.env.*
+
+# Python cache / build
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Streamlit and cache
+.streamlit/
+.cache/
+**/__pycache__/
+**/.pytest_cache/
+
+# Output folders
+output/
+reports/
+exports/
+media/
+uploads/
+
+# Jupyter / notebook checkpoints
+.ipynb_checkpoints/
+
+# Database or local test files
+*.db
+*.sqlite3
+
+# Docker / Compose
+*.pid
+*.sock
