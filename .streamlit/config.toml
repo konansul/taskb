@@ -1,0 +1,29 @@
+[global]
+developmentMode = false
+# Performance optimization - use Arrow for faster DataFrame serialization
+dataFrameSerialization = "arrow"
+
+[server]
+port = 8501
+headless = true
+maxUploadSize = 200
+enableCORS = true
+enableXsrfProtection = false
+# Performance optimizations
+runOnSave = false
+fastReruns = true
+
+[browser]
+gatherUsageStats = false
+
+[client]
+# Reduce the blurring effect during updates
+showWarningOnDirectExecution = false
+caching = true
+
+[theme]
+primaryColor = "#FF6B6B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
