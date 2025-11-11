@@ -99,8 +99,6 @@ taskb/
 │   ├── prompts.py                  # AI prompt templates
 │   └── token_utils.py              # Token decoding (Access/Refresh)
 │
-├── venv/                           # Virtual environment (excluded via .gitignore)
-│
 ├── .env.example                    # Template for environment variables
 ├── .gitignore                      # Git ignore rules (env, venv, cache, etc.)
 ├── main.py                         # Optional main script entrypoint
