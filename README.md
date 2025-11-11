@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a comprehensive Streamlit implementation of the AI-powered dashboard generator that transforms CSV/Excel data into intelligent visualizations using Google Gemini AI.
+This is a comprehensive Streamlit implementation of the AI-powered dashboard generator that transforms CSV/Excel data into intelligent visualizations using Google Gemini AI. The main improvement in this version is the addition of user authentication, a user details panel, and my files system where users can see previously uploaded csv files directly in the application. This has been done through local database via PostgreSQL.
 
 ## Features
 
@@ -21,17 +21,29 @@ This is a comprehensive Streamlit implementation of the AI-powered dashboard gen
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd 4sim-gov-ai-mvp/taskb
+cd taskb
+
+# Create and activate a virtual environment
+python3 -m venv venv
+source venv/bin/activate
 
 # Install dependencies
-pip install -r ../shared/requirements.txt
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your Google API key
+pip install -r requirements.txt
 ```
 
 ### 2. Configuration
+
+Before running the app, you need to create an environment file that stores your configuration details.
+```
+# Copy the example environment file
+cp .env.example .env
+```
+First edit .env and set your PostgreSQL connection string. The database name task_b is used in this example, but you can replace it with your own. 	If your database requires a password, include it in the connection string.
+```
+# PostgreSQL Database Configuration
+# Format: postgresql+psycopg2://<username>:<password>@<host>:<port>/<database_name>
+DATABASE_URL=postgresql+psycopg2://postgres@localhost:5432/task_b
+```
 
 Add your Google API key to `.env`:
 ```
@@ -40,14 +52,14 @@ GOOGLE_API_KEY=your_google_api_key_here
 
 ### 3. Run the Application
 
-#### Option A: Direct Python
-```bash
-python run_streamlit.py
-```
-
-#### Option B: Streamlit CLI
+#### Option A (Best): Streamlit CLI
 ```bash
 streamlit run streamlit_app.py
+```
+
+#### Option B: Direct Python
+```bash
+python run_streamlit.py
 ```
 
 #### Option C: Docker
@@ -57,6 +69,47 @@ docker-compose up streamlit-app
 ```
 
 The application will be available at `http://localhost:8501`
+
+## Architecture
+
+```
+taskb/
+├── .streamlit/                     # Streamlit configuration folder
+│   └── config.toml                 # Custom Streamlit settings
+│
+├── components/                     # Streamlit UI components
+│   ├── __init__.py
+│   ├── file_upload.py              # File upload logic + AI formatting + DB save
+│   ├── chart_preview.py            # Chart preview interface
+│   ├── dashboard_export.py         # Export (PDF, ZIP, image)
+│  
+├── config/                         # Configuration & environment handling
+│   ├── __init__.py
+│   ├── database.py                 # SQLAlchemy engine & ORM models
+│   └── settings.py                 # Environment variable loading (dotenv)
+│
+├── utils/                          # Utility modules for logic and AI
+│   ├── __init__.py
+│   ├── ai_agents.py                # Gemini AI agents (Analyst, Extractor, etc.)
+│   ├── api_client.py               # FastAPI authentication requests
+│   ├── chart_generation.py         # Chart generation functions
+│   ├── data_processing.py          # File parsing & dataframe processing
+│   ├── models.py                   # Pydantic models for structured data
+│   ├── pdf_utils.py                # PDF generation utilities
+│   ├── prompts.py                  # AI prompt templates
+│   └── token_utils.py              # Token decoding (Access/Refresh)
+│
+├── venv/                           # Virtual environment (excluded via .gitignore)
+│
+├── .env.example                    # Template for environment variables
+├── .gitignore                      # Git ignore rules (env, venv, cache, etc.)
+├── main.py                         # Optional main script entrypoint
+├── run_streamlit.py                # Streamlit launcher
+├── streamlit_app.py                # Main Streamlit app logic
+├── test_csv_formatter.py           # Test script for CSV AI formatting
+├── requirements.txt                # All dependencies with versions
+└── README.md                       # Project documentation
+```
 
 ## User Guide
 
@@ -89,27 +142,6 @@ The application will be available at `http://localhost:8501`
    - Enhanced PDF (with AI analysis)
 3. Download your completed dashboard
 
-## Architecture
-
-```
-taskb/
-├── streamlit_app.py           # Main Streamlit application
-├── config/
-│   └── settings.py           # Configuration classes
-├── utils/
-│   ├── ai_agents.py          # AI analysis agents
-│   ├── data_processing.py    # Data handling utilities
-│   ├── chart_generation.py   # Chart creation engine
-│   ├── pdf_utils.py          # PDF generation and analysis
-│   ├── models.py             # Pydantic models
-│   └── prompts.py            # AI prompt templates
-├── components/
-│   ├── file_upload.py        # File upload widget + CSV formatting
-│   ├── chart_preview.py      # Chart preview component
-│   └── dashboard_export.py   # Export functionality
-└── .streamlit/
-    └── config.toml           # Streamlit configuration
-```
 
 ## Key Components
 
